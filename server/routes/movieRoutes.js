@@ -6,3 +6,5 @@ import { protect } from '../middlewares/authMiddleware.js'
 const router = express.Router()
 
 router.post('/create-movie', createMovie, validateMovieCreateRequest)
+
+export default router

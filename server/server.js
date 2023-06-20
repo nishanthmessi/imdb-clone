@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
+import movieRoutes from './routes/movieRoutes.js'
 
 dotenv.config()
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use('/api/users', userRoutes)
+app.use('/api/movies', movieRoutes)
 
 app.get('/', (req, res) => {
   res.send('Server is up and running')
