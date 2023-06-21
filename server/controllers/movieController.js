@@ -1,22 +1,15 @@
+import asyncHandler from 'express-async-handler'
 import Movie from '../models/movieModel.js'
 
-const createMovie = async (req, res) => {
-  try {
-    const movie = await Movie.create(req.body)
+const createMovie = asyncHandler(async (req, res) => {
+  const movie = await Movie.create(req.body)
 
+  if (movie) {
     return res.status(200).json(movie)
-  } catch (error) {
-    if (error.name == 'ValidationError') {
-      let err = {}
-      Object.keys(error.errors).forEach((key) => {
-        err[key] = error.errors[key].message
-      })
-      console.log(err)
-      throw { err: err, code: 500 }
-    } else {
-      throw error
-    }
+  } else {
+    res.status(400)
+    throw new Error('Invalid movie data')
   }
-}
+})
 
 export { createMovie }
